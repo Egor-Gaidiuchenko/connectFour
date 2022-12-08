@@ -1,0 +1,68 @@
+body {
+    background-color: #651fff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template: 1fr 560px 1fr / 1fr 560px 1fr;
+    grid-template-areas: ". . ." ". field ." ". . .";
+    height: 100vh;
+    width: 100vw;
+
+    .field {
+        grid-area: field;
+        display: grid;
+        grid-template: 1fr / repeat(7, 80px);
+        overflow: hidden;
+        border-radius: 40px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 560px;
+            height: 560px;
+            border-radius: 40px;
+            grid-area: 1 / 1 / 2 / 8;
+            background-color: #651fff;
+            background-size: 80px 80px;
+            background-repeat: repeat;
+            background-image: radial-gradient(circle at 50% 45px, transparent 28px, #000 29px);
+            z-index: -1;
+        } 
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 560px;
+            height: 560px;
+            border-radius: 40px;
+            grid-area: 1 / 1 / 2 / 8;
+            background-size: 80px 80px;
+            background-repeat: repeat;
+            background-image: radial-gradient(circle, transparent 28px, #000 30px, #fff 31px);
+            z-index: -1;
+            border-bottom: 5px solid #000;
+        } 
+
+        .column {
+            background-color: transparent;
+            display: flex;
+            flex-direction: column-reverse;
+
+            .chip {
+                width: 80px;
+                height: 80px;
+                z-index: -1;
+                border-radius: 50%;
+            }
+
+            .yellow-chip {
+                background-color: rgb(253, 253, 124);
+            }
+
+            .pink-chip {
+                background-color: rgb(255, 154, 171);
+            }
+        }
+    }
+}
