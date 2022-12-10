@@ -1,7 +1,11 @@
 const field = document.querySelector('.field'),
       columns = document.querySelectorAll('.column'),
-      moves = [];
-let totalMoves = 0;
+      moves = [],
+      player1Scoreboard = document.querySelector('.player1 > h2'),
+      player2Scoreboard = document.querySelector('.player2 > h2');
+let totalMoves = 0,
+    player1Wins = 0,
+    player2Wins = 0;
 
 columns.forEach((i, index) => {
     i.style.cssText = `grid-area: 1 / ${index + 1} / 2 / ${index + 2}`;
@@ -14,7 +18,7 @@ for (let i = 0; i <= columns.length - 1; i++) {
 field.addEventListener('click', (e) => {
     const target = e.target;
     let columnNumber = Number;
-    
+
     columns.forEach((i, index) => {
         if (i === target) {
             columnNumber = index;
@@ -26,6 +30,10 @@ field.addEventListener('click', (e) => {
     } 
 
     winCheck (columnNumber);
+
+    if (totalMoves === Math.pow(columns.length, 2)) {
+        restartGame();
+    }
 });
 
 function chipRender (parent, columnNumber) {
@@ -35,10 +43,10 @@ function chipRender (parent, columnNumber) {
 
     if (totalMoves % 2 == 0) {
         element.classList.add('yellow-chip');
-        moves[columnNumber].push('yellow');
+        moves[columnNumber].push(1);
     } else {
         element.classList.add('pink-chip');  
-        moves[columnNumber].push('pink');  
+        moves[columnNumber].push(2);  
     }
 
     element.style.transform = `translateY(-560px)`;
@@ -95,28 +103,28 @@ function winCheck (columnNumber) {
 
     column.forEach((item, index) => {
         if (item !== undefined && item === column[index + 1] && item === column[index + 2] && item === column[index + 3]) {
-            console.log(`${item} wins!`);
+            scoreBoardsDisplay (item);
             restartGame ();
         }
     });
 
     row.forEach((item, index) => {
         if (item !== undefined && item === row[index + 1] && item === row[index + 2] && item === row[index + 3]) {
-            console.log(`${item} wins!`);
+            scoreBoardsDisplay (item);
             restartGame ();
         }
     });
 
     diagonal1.forEach((item, index) => {
         if (item !== undefined && item === diagonal1[index + 1] && item === diagonal1[index + 3] && item === diagonal1[index + 3]) {
-            console.log(`${item} wins!`);
+            scoreBoardsDisplay (item);
             restartGame ();
         }
     });
 
     diagonal2.forEach((item, index) => {
         if (item !== undefined && item === diagonal2[index + 1] && item === diagonal2[index + 3] && item === diagonal2[index + 3]) {
-            console.log(`${item} wins!`);
+            scoreBoardsDisplay (item);
             restartGame ();
         }
     });
@@ -136,4 +144,17 @@ function restartGame () {
             }
         });
     }
+
+    totalMoves = 0;
+}
+
+function scoreBoardsDisplay (winner) {
+    if (winner === 1) {
+        ++player1Wins;
+    } else if (winner === 2) {
+        ++player2Wins;
+    }
+
+    player1Scoreboard.textContent = `${player1Wins}`;
+    player2Scoreboard.textContent = `${player2Wins}`;
 }

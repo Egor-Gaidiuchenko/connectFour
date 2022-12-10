@@ -1,30 +1,92 @@
-body {
-  background-color: #651fff;
-  margin: 0;
-  padding: 0;
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&display=swap");
+* {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+* body {
+  background-color: #651fff;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 560px 1fr;
-      grid-template: 1fr 560px 1fr/1fr 560px 1fr;
-      grid-template-areas: ". . ." ". field ." ". . .";
+  -ms-grid-columns: 1fr 30px auto 30px 1fr;
+      grid-template: 1fr auto 1fr/1fr auto 1fr;
+      grid-template-areas: ". . ." "player1 field player2" ". . .";
   height: 100vh;
   width: 100vw;
+  -webkit-column-gap: 30px;
+     -moz-column-gap: 30px;
+          column-gap: 30px;
 }
-body .field {
+* body .scoreboard {
+  display: -ms-grid;
+  display: grid;
+  height: 240px;
+  width: 200px;
+  background-color: #fff;
+  -ms-grid-row-align: center;
+      align-self: center;
+  border-radius: 30px;
+  border: 3px solid #000;
+  border-bottom: 7px solid #000;
+}
+* body .scoreboard svg {
+  width: 70px;
+  height: 70px;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  position: relative;
+  top: -35px;
+}
+* body .scoreboard h1 {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  position: relative;
+  top: -35px;
+  font-family: "Chakra Petch";
+  font-size: 30px;
+}
+* body .scoreboard h2 {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  position: relative;
+  top: -35px;
+  font-family: "Chakra Petch";
+  font-size: 50px;
+}
+* body .player1 {
   -ms-grid-row: 2;
-  -ms-grid-column: 2;
+  -ms-grid-column: 1;
+  grid-area: player1;
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+* body .player2 {
+  -ms-grid-row: 2;
+  -ms-grid-column: 5;
+  grid-area: player2;
+  -ms-grid-column-align: start;
+      justify-self: start;
+}
+* body .field {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
   grid-area: field;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 1fr;
-  -ms-grid-columns: (80px)[7];
-      grid-template: 1fr/repeat(7, 80px);
+  -ms-grid-rows: 570px;
+  -ms-grid-columns: (80.66px)[7];
+      grid-template: 570px/repeat(7, 80.66px);
   overflow: hidden;
   border-radius: 40px;
 }
-body .field::before {
+* body .field::before {
   content: "";
   position: absolute;
   width: 560px;
@@ -40,8 +102,9 @@ body .field::before {
   background-repeat: repeat;
   background-image: radial-gradient(circle at 50% 45px, transparent 28px, #000 29px);
   z-index: -1;
+  border: 3px solid #000;
 }
-body .field::after {
+* body .field::after {
   content: "";
   position: absolute;
   width: 560px;
@@ -56,9 +119,10 @@ body .field::after {
   background-repeat: repeat;
   background-image: radial-gradient(circle, transparent 28px, #000 30px, #fff 31px);
   z-index: -1;
+  border: 3px solid #000;
   border-bottom: 7px solid #000;
 }
-body .field .column {
+* body .field .column {
   background-color: transparent;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -68,15 +132,15 @@ body .field .column {
       -ms-flex-direction: column-reverse;
           flex-direction: column-reverse;
 }
-body .field .column .chip {
+* body .field .column .chip {
   width: 80px;
   height: 80px;
   z-index: -1;
   border-radius: 50%;
 }
-body .field .column .yellow-chip {
+* body .field .column .yellow-chip {
   background-color: rgb(253, 253, 124);
 }
-body .field .column .pink-chip {
+* body .field .column .pink-chip {
   background-color: rgb(255, 154, 171);
 }
