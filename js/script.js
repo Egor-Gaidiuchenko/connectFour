@@ -1,6 +1,5 @@
 const field = document.querySelector('.field'),
       columns = document.querySelectorAll('.column'),
-      column = document.querySelector('.column'),
       moves = [];
 let totalMoves = 0;
 
@@ -8,14 +7,14 @@ columns.forEach((i, index) => {
     i.style.cssText = `grid-area: 1 / ${index + 1} / 2 / ${index + 2}`;
 });
 
-for (let i = 0; i <= 6; i++) {
+for (let i = 0; i <= columns.length - 1; i++) {
     moves[i] = [];
 }
 
 field.addEventListener('click', (e) => {
     const target = e.target;
     let columnNumber = Number;
-
+    
     columns.forEach((i, index) => {
         if (i === target) {
             columnNumber = index;
@@ -45,12 +44,12 @@ function chipRender (parent, columnNumber) {
     element.style.transform = `translateY(-560px)`;
     parent.append(element);
 
-    chipDrop(element);
+    chipDropAnimation(element);
     
     totalMoves++;
 }
 
-function chipDrop (element) {
+function chipDropAnimation (element) {
     let positionChip = element.parentElement.parentElement.clientHeight;
 
     let chipDropping = setInterval(() => {
@@ -97,24 +96,44 @@ function winCheck (columnNumber) {
     column.forEach((item, index) => {
         if (item !== undefined && item === column[index + 1] && item === column[index + 2] && item === column[index + 3]) {
             console.log(`${item} wins!`);
+            restartGame ();
         }
     });
 
     row.forEach((item, index) => {
         if (item !== undefined && item === row[index + 1] && item === row[index + 2] && item === row[index + 3]) {
             console.log(`${item} wins!`);
+            restartGame ();
         }
     });
 
     diagonal1.forEach((item, index) => {
         if (item !== undefined && item === diagonal1[index + 1] && item === diagonal1[index + 3] && item === diagonal1[index + 3]) {
             console.log(`${item} wins!`);
+            restartGame ();
         }
     });
 
     diagonal2.forEach((item, index) => {
         if (item !== undefined && item === diagonal2[index + 1] && item === diagonal2[index + 3] && item === diagonal2[index + 3]) {
             console.log(`${item} wins!`);
+            restartGame ();
         }
     });
+}
+
+function restartGame () {
+    for (let i = 0; i <= columns.length - 1; i++) {
+        moves.forEach(item => {
+            item.pop();
+        });
+    }
+
+    for (let i = 1; i <= columns.length; i++) {
+        columns.forEach(item => {
+            if (item.childNodes[0] !== undefined) {
+                item.childNodes[0].remove(); 
+            }
+        });
+    }
 }
