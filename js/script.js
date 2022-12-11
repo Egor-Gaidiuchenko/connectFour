@@ -1,11 +1,11 @@
 const field = document.querySelector('.field'),
       columns = document.querySelectorAll('.column'),
-      moves = [],
-      player1Scoreboard = document.querySelector('.player1 > h2'),
-      player2Scoreboard = document.querySelector('.player2 > h2');
+      moves = [];
 let totalMoves = 0,
     player1Wins = 0,
-    player2Wins = 0;
+    player2Wins = 0,
+    isAnimated = false,
+    isReadyForGame = true;
 
 columns.forEach((i, index) => {
     i.style.cssText = `grid-area: 1 / ${index + 1} / 2 / ${index + 2}`;
@@ -25,15 +25,9 @@ field.addEventListener('click', (e) => {
         }
     });
 
-    if (target && target.classList.contains('column') && moves[columnNumber].length <= 6) {
+    if (target && target.classList.contains('column') && moves[columnNumber].length <= 6 && isAnimated === false && isReadyForGame === true) {
         chipRender (target, columnNumber);
     } 
-
-    winCheck (columnNumber);
-
-    if (totalMoves === Math.pow(columns.length, 2)) {
-        restartGame();
-    }
 });
 
 function chipRender (parent, columnNumber) {
@@ -52,15 +46,17 @@ function chipRender (parent, columnNumber) {
     element.style.transform = `translateY(-560px)`;
     parent.append(element);
 
-    chipDropAnimation(element);
+    chipDropAnimation(element, columnNumber);
     
     totalMoves++;
 }
 
-function chipDropAnimation (element) {
+function chipDropAnimation (element, columnNumber) {
     let positionChip = element.parentElement.parentElement.clientHeight;
-
+  
     let chipDropping = setInterval(() => {
+        isAnimated = true;
+
         if (positionChip > 0 && positionChip >= 30) {
             positionChip -= 30;
             element.style.transform = `translateY(${-positionChip}px)`;
@@ -68,6 +64,13 @@ function chipDropAnimation (element) {
             element.style.transform = `translateY(${0}px)`;
             positionChip = 0;
         } else if (positionChip ===  0) {
+            isAnimated = false;
+
+            winCheck(columnNumber);
+            if (totalMoves === Math.pow(columns.length, 2)) {
+                showWinnerPanel (0);
+            }
+
             clearInterval(chipDropping);
         }
     }, 20);
@@ -104,28 +107,28 @@ function winCheck (columnNumber) {
     column.forEach((item, index) => {
         if (item !== undefined && item === column[index + 1] && item === column[index + 2] && item === column[index + 3]) {
             scoreBoardsDisplay (item);
-            restartGame ();
+            showWinnerPanel(item);
         }
     });
 
     row.forEach((item, index) => {
         if (item !== undefined && item === row[index + 1] && item === row[index + 2] && item === row[index + 3]) {
             scoreBoardsDisplay (item);
-            restartGame ();
+            showWinnerPanel(item);
         }
     });
 
     diagonal1.forEach((item, index) => {
-        if (item !== undefined && item === diagonal1[index + 1] && item === diagonal1[index + 3] && item === diagonal1[index + 3]) {
+        if (item !== undefined && item === diagonal1[index + 1] && item === diagonal1[index + 2] && item === diagonal1[index + 3]) {
             scoreBoardsDisplay (item);
-            restartGame ();
+            showWinnerPanel(item);
         }
     });
 
     diagonal2.forEach((item, index) => {
-        if (item !== undefined && item === diagonal2[index + 1] && item === diagonal2[index + 3] && item === diagonal2[index + 3]) {
+        if (item !== undefined && item === diagonal2[index + 1] && item === diagonal2[index + 2] && item === diagonal2[index + 3]) {
             scoreBoardsDisplay (item);
-            restartGame ();
+            showWinnerPanel(item);
         }
     });
 }
@@ -149,6 +152,9 @@ function restartGame () {
 }
 
 function scoreBoardsDisplay (winner) {
+    const player1Scoreboard = document.querySelector('.player1 > h2'),
+          player2Scoreboard = document.querySelector('.player2 > h2');
+
     if (winner === 1) {
         ++player1Wins;
     } else if (winner === 2) {
@@ -157,4 +163,41 @@ function scoreBoardsDisplay (winner) {
 
     player1Scoreboard.textContent = `${player1Wins}`;
     player2Scoreboard.textContent = `${player2Wins}`;
+}
+
+function showWinnerPanel (winner) {
+    const winnerPanel = document.querySelector('.winner-panel'),
+          winnerName = winnerPanel.querySelector('h1'),
+          nextGame = winnerPanel.querySelector('button');
+
+    isReadyForGame = false;
+
+    winnerPanel.style.display = 'grid';
+    document.body.style.overflow = 'hidden';
+
+    if (winner === 1) {
+        winnerPanel.style.gridArea = '1 / 1 / 2 / 2';
+        winnerPanel.style.justifySelf = 'end';
+        nextGame.style.backgroundColor = 'rgb(253, 253, 124)';
+    } else if (winner === 2) {
+        winnerPanel.style.gridArea = '1 / 3 / 2 / 4';
+        winnerPanel.style.justifySelf = 'start';
+        nextGame.style.backgroundColor = 'rgb(255, 154, 171)';
+    } else if (winner === 0) {
+        winnerPanel.style.gridArea = '1 / 2 / 2 / 3';
+        winnerPanel.style.justifySelf = 'center';
+        nextGame.style.backgroundColor = '#9d6fff';
+    }
+    
+    if (winner === 1 || winner === 2) {
+        winnerName.textContent = `Player ${winner} won!`;
+    } else if (winner === 0) {
+        winnerName.textContent = `Draw!`;
+    }
+    
+    nextGame.addEventListener('click', () => {
+        restartGame();
+        winnerPanel.style.display = 'none';
+        isReadyForGame = true;
+    });
 }
