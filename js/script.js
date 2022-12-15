@@ -176,16 +176,22 @@ function showWinnerPanel (winner) {
     document.body.style.overflow = 'hidden';
 
     if (winner === 1) {
-        winnerPanel.style.gridArea = '1 / 1 / 2 / 2';
-        winnerPanel.style.justifySelf = 'end';
+        if (window.innerWidth > 768) {
+            winnerPanel.style.gridArea = '1 / 1 / 2 / 2';
+            winnerPanel.style.justifySelf = 'end';
+        }
         nextGame.style.backgroundColor = 'rgb(253, 253, 124)';
     } else if (winner === 2) {
-        winnerPanel.style.gridArea = '1 / 3 / 2 / 4';
-        winnerPanel.style.justifySelf = 'start';
+        if (window.innerWidth > 768) {
+            winnerPanel.style.gridArea = '1 / 3 / 2 / 4';
+            winnerPanel.style.justifySelf = 'start';
+        } 
         nextGame.style.backgroundColor = 'rgb(255, 154, 171)';
     } else if (winner === 0) {
-        winnerPanel.style.gridArea = '1 / 2 / 2 / 3';
-        winnerPanel.style.justifySelf = 'center';
+        if (window.innerWidth > 768) {
+            winnerPanel.style.gridArea = '1 / 2 / 2 / 3';
+            winnerPanel.style.justifySelf = 'center';
+        }
         nextGame.style.backgroundColor = '#9d6fff';
     }
     

@@ -16,6 +16,7 @@
   height: 100vh;
   width: 100vw;
   gap: 10px 30px;
+  padding: 20px;
 }
 * body header {
   -ms-grid-row: 1;
@@ -28,6 +29,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 80px;
 }
 * body header button {
   height: 40px;
@@ -137,8 +139,8 @@
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 570px;
-  -ms-grid-columns: (80.66px)[7];
-      grid-template: 570px/repeat(7, 80.66px);
+  -ms-grid-columns: (81px)[7];
+      grid-template: 570px/repeat(7, 81px);
   overflow: hidden;
   border-radius: 40px;
 }
@@ -187,6 +189,7 @@
   -webkit-box-direction: reverse;
       -ms-flex-direction: column-reverse;
           flex-direction: column-reverse;
+  padding-bottom: 5px;
 }
 * body .field .column .chip {
   width: 80px;
@@ -204,6 +207,7 @@
   background-color: #fff;
   height: 100%;
   width: 200px;
+  max-width: 200px;
   display: none;
   border-radius: 20px;
   border: 3px solid #000;
@@ -225,4 +229,254 @@
   height: 20px;
   border-radius: 5px;
   border: 2px solid #000;
+}
+
+@media screen and (max-width: 1024px) {
+  * body {
+    padding: 20px 10px;
+    -webkit-column-gap: 10px;
+       -moz-column-gap: 10px;
+            column-gap: 10px;
+  }
+  * body .scoreboard {
+    width: 100%;
+  }
+  * body .field {
+    -ms-grid-rows: 430px;
+    -ms-grid-columns: (61px)[7];
+        grid-template: 430px/repeat(7, 61px);
+    border-radius: 30px;
+    overflow: hidden;
+  }
+  * body .field::before {
+    width: 420px;
+    height: 420px;
+    background-size: 60px 60px;
+    background-image: radial-gradient(circle at 50% 35px, transparent 18px, #000 19px);
+    border-radius: 30px;
+  }
+  * body .field::after {
+    width: 420px;
+    height: 420px;
+    background-size: 60px 60px;
+    background-image: radial-gradient(circle, transparent 18px, #000 20px, #fff 21px);
+    border-radius: 30px;
+  }
+  * body .field .column .chip {
+    width: 60px;
+    height: 60px;
+  }
+  * body .winner-panel {
+    width: 100%;
+  }
+  * body .winner-panel h1 {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 768px) {
+  * body {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[2];
+        grid-template: repeat(3, auto)/repeat(2, 1fr);
+        grid-template-areas: "header header" "player1 player2" "field field";
+  }
+  * body header {
+    padding: 0 20px;
+  }
+  * body .scoreboard {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 140px;
+    width: 80%;
+    min-width: 172px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-column-gap: 5px;
+       -moz-column-gap: 5px;
+            column-gap: 5px;
+  }
+  * body .scoreboard svg {
+    width: 70px;
+    height: 70px;
+    top: 0;
+  }
+  * body .scoreboard h1 {
+    font-size: 5vw;
+    top: 0px;
+  }
+  * body .scoreboard h2 {
+    font-size: 8vw;
+    top: 0px;
+  }
+  * body .player1 {
+    position: relative;
+    padding-right: 5px;
+  }
+  * body .player1 svg {
+    right: 35px;
+  }
+  * body .player1 h1 {
+    right: 25px;
+  }
+  * body .player1 h2 {
+    right: 15px;
+  }
+  * body .player2 {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    padding-left: 5px;
+  }
+  * body .player2 svg {
+    left: 35px;
+  }
+  * body .player2 h1 {
+    left: 25px;
+  }
+  * body .player2 h2 {
+    left: 15px;
+  }
+  * body .field {
+    -ms-grid-column-align: center;
+        justify-self: center;
+    height: 430px;
+  }
+  * body .winner-panel {
+    width: 200px;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-area: 1/1/2/3;
+    -ms-grid-column-align: center;
+        justify-self: center;
+  }
+  * body .winner-panel h1 {
+    font-size: 24px;
+  }
+  * body header {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+  }
+  * body .player1 {
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+  }
+  * body .player2 {
+    -ms-grid-row: 2;
+    -ms-grid-column: 2;
+  }
+  * body .field {
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+  }
+}
+@media screen and (max-width: 425px) {
+  * body {
+    padding: 0;
+  }
+  * body .scoreboard {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: auto 0 auto;
+    -ms-grid-columns: auto 0 auto;
+        grid-template: repeat(2, auto)/repeat(2, auto);
+    width: 80%;
+    min-width: 120px;
+    gap: 0;
+  }
+  * body .scoreboard svg {
+    width: 70px;
+    height: 70px;
+    top: 0;
+    -ms-grid-column-align: center;
+        justify-self: center;
+  }
+  * body .scoreboard h1 {
+    top: 0px;
+    font-size: 5vw;
+  }
+  * body .scoreboard h2 {
+    top: 0px;
+    font-size: 10vw;
+  }
+  * body .player1 {
+    position: relative;
+  }
+  * body .player1 svg {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-area: 1/1/3/2;
+    right: 35px;
+  }
+  * body .player1 h1 {
+    text-align: center;
+    right: 25px;
+  }
+  * body .player1 h2 {
+    text-align: center;
+    right: 25px;
+  }
+  * body .player2 {
+    position: relative;
+  }
+  * body .player2 svg {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-area: 1/2/3/3;
+    left: 35px;
+  }
+  * body .player2 h1 {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-area: 1/1/2/2;
+    left: 25px;
+  }
+  * body .player2 h2 {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-area: 2/1/3/2;
+    left: 25px;
+  }
+  * body .field {
+    -ms-grid-column-align: center;
+        justify-self: center;
+    -ms-grid-rows: 290px;
+    -ms-grid-columns: (40px)[7];
+        grid-template: 290px/repeat(7, 40px);
+    height: 290px;
+    border-radius: 20px;
+  }
+  * body .field::before {
+    width: 280px;
+    height: 280px;
+    background-size: 40px 40px;
+    background-image: radial-gradient(circle at 50% 25px, transparent 12px, #000 14px);
+    border-radius: 20px;
+  }
+  * body .field::after {
+    width: 280px;
+    height: 280px;
+    background-size: 40px 40px;
+    background-image: radial-gradient(circle, transparent 12px, #000 14px, #fff 15px);
+    border-radius: 20px;
+  }
+  * body .field .column .chip {
+    width: 40px;
+    height: 40px;
+  }
 }
