@@ -1,6 +1,7 @@
 const field = document.querySelector('.field'),
       columns = document.querySelectorAll('.column'),
-      moves = [];
+      moves = [],
+      restartButton = document.querySelector('.restart-button');
 let totalMoves = 0,
     player1Wins = 0,
     player2Wins = 0,
@@ -28,6 +29,10 @@ field.addEventListener('click', (e) => {
     if (target && target.classList.contains('column') && moves[columnNumber].length <= 6 && isAnimated === false && isReadyForGame === true) {
         chipRender (target, columnNumber);
     } 
+});
+
+restartButton.addEventListener('click', () => {
+    restartGame();
 });
 
 function chipRender (parent, columnNumber) {
@@ -188,7 +193,7 @@ function showWinnerPanel (winner) {
         } 
         nextGame.style.backgroundColor = 'rgb(255, 154, 171)';
     } else if (winner === 0) {
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 768) {  
             winnerPanel.style.gridArea = '1 / 2 / 2 / 3';
             winnerPanel.style.justifySelf = 'center';
         }
