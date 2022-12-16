@@ -8,10 +8,6 @@ let totalMoves = 0,
     isAnimated = false,
     isReadyForGame = true;
 
-columns.forEach((i, index) => {
-    i.style.cssText = `grid-area: 1 / ${index + 1} / 2 / ${index + 2}`;
-});
-
 for (let i = 0; i <= columns.length - 1; i++) {
     moves[i] = [];
 }
