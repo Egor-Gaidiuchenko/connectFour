@@ -44,7 +44,7 @@ function chipRender (parent, columnNumber) {
         moves[columnNumber].push(2);  
     }
 
-    element.style.transform = `translateY(-560px)`;
+    element.style.transform = `translateY(-${parent.clientHeight}px)`;
     parent.append(element);
 
     chipDropAnimation(element, columnNumber);
