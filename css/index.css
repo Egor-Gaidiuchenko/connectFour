@@ -192,7 +192,7 @@
   padding-bottom: 5px;
 }
 * body .field .column .chip {
-  width: 80px;
+  width: 78px;
   height: 80px;
   z-index: -1;
   border-radius: 50%;
@@ -263,7 +263,7 @@
     border-radius: 30px;
   }
   * body .field .column .chip {
-    width: 60px;
+    width: 58px;
     height: 60px;
   }
   * body .winner-panel {
@@ -476,7 +476,7 @@
     border-radius: 20px;
   }
   * body .field .column .chip {
-    width: 40px;
+    width: 38px;
     height: 40px;
   }
 }
